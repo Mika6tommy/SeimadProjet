@@ -1,0 +1,45 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+show_image:
+    path: '/image/{id}'
+    controller: 'App\Controller\ImageController::show'
+image_list:
+    path: /image/list
+    controller: App\Controller\ImageController::index
+
+app_admin_property:
+    resource: ../src/Controller/AdminPropertyController.php
+    type: attribute
+dashboard:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+load_more_actualites:
+    path: /load-more-actualites
+    controller: App\Controller\ActualiteController::loadMoreActualites
+    methods: GET
+uproperty_index:
+    path: /uproperty
+    controller: App\Controller\PropertyController::index
+
+# app_admin_property_crud:
+#     path: '/admin/properties'
+#     controller: 'App\Controller\Admin\PropertyCrudController::index'
+#     methods: ['GET']
+    
+# app_admin_property_crud_new:
+#     path: '/admin/properties/new'
+#     controller: 'App\Controller\Admin\PropertyCrudController::new'
+#     methods: ['GET', 'POST']
+    
+# app_admin_property_crud_edit:
+#     path: '/admin/properties/{id}/edit'
+#     controller: 'App\Controller\Admin\PropertyCrudController::edit'
+#     methods: ['GET', 'POST']
+    
+# app_admin_property_crud_delete:
+#     path: '/admin/properties/{id}'
+#     controller: 'App\Controller\Admin\PropertyCrudController::delete'
+#     methods: ['DELETE']

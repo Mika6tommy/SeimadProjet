@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Liste des Propriétés{% endblock %}
+
+{% block body %}
+<section class="intro-single">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+    <h1 class="my-4">Liste des Propriétés</h1>
+    <div class="row">
+        {% for property in properties %}
+            <div class="col-md-4 mb-4">
+                <div class="card-box-b card-shadow news-box">
+                    <div class="img-box-b">
+                        <a href="{{ asset('assets/img/' ~ property.Lien) }}" target="_blank">
+                            <img src="{{ asset('assets/img/' ~ property.Lien) }}" alt="{{ property.title }}" class="img-b img-fluid">
+                        </a>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-header-b">
+                            <div class="card-category-b">
+                                <span class="category-b">{{ property.formatedPrice }} MGA</span>
+                            </div>
+                            <div class="card-title-b">
+                                <h2 class="title-2">
+                                    <a href="{{ path('app_property_show', {'id': property.id, 'slug': property.slug}) }}">
+                                        {{ property.title }}
+                                    </a>
+                                </h2>
+                            </div>
+                            <div class="card-date">
+                                <span class="date-b">{{ property.formatedDate }}</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <p class="text-center">No records found</p>
+            </div>
+        {% endfor %}
+    </div>
+<div class="col-auto d-flex">
+              <a class="btn btn-primary ml-auto" href="{{path('app_manifesat_interet')}}">Manifestation d'intérêt</a>
+              </div> 
+    <div class="row d-flex">
+        <div class="col-sm-12">
+            <nav class="pagination-a">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">
+                            {% if page > 1 %}
+    
+    <a href="{{ path('app_property', {page: page - 1} )}}" class="btn btn-secondary"> Page précédente</a>
+{% endif %}
+{% if page < maxPage %}
+        <a href="{{ path('app_property', {page: page + 1} )}}" class="btn btn-primary">Page suivante</a>
+{% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

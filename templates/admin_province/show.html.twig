@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<title>Province</title>
+
+{% block body %}
+    <h1>Province</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ province.id }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ province.lieu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_province_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_province_edit', {'id': province.id}) }}">edit</a>
+
+    {{ include('admin_province/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,54 @@
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!DOCTYPE html>
+
+<title>Actualite index</title>
+
+{% block body %}
+    <h1>Actualite index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Lieu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for actualite in actualites %}
+            <tr>
+                <td>{{ actualite.id }}</td>
+                <td>{{ actualite.description }}</td>
+                 <td><img style=" width: 100px ; heigth: auto"src="{{ asset('assets/img/' ~ actualite.Lien)  }}" alt="Image de propriété"></img></td>
+                <td>{{ actualite.lieu }}</td>
+                <td>
+                    <a href="{{ path('app_admin_actualite_show', {'id': actualite.id}) }}">show</a>
+                    <a href="{{ path('app_admin_actualite_edit', {'id': actualite.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-b" href="{{ path('app_admin_actualite_new') }}">Create new</a>
+{% endblock %}
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{# {% endblock %} #}

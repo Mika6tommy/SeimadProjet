@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Liste des Propriétés{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-4">Liste des Propriétés</h1>
+    <div id="actualites" class="row">
+        {% for actualite in actualites %}
+            <div class="col-md-11 mb-10">
+            <div class="card-overlay">
+                        <div class="card-header-b">
+                            <div class="card-title-b">
+                                <h2 class="title-2">
+                                    <a href="{{ path('app_actualite_show', {'id': actualite.id, 'slug': actualite.slug}) }}">
+                                        {{ actualite.title }}
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                {# <div class="card-box-b card-shadow news-box"> #}
+                    <div class="property-description">
+                        <p class="description color-text-a">
+                            {{ actualite.description|raw }}
+                        </p>
+                    </div>
+                    <div class="img-box-b">
+                        <a href="{{ asset('assets/img/' ~ actualite.Lien) }}" target="_blank">
+                            <img src="{{ asset('assets/img/' ~ actualite.Lien) }}" alt="{{ actualite.title }}" class="img-b img-fluid viewables-image">
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <p class="text-center">No records found</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Loader pour afficher le chargement -->
+    <div id="loader" class="text-center mb-3" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var page = 1;
+        var loading = false;
+
+        // Fonction pour charger plus d'actualités
+        function loadMoreActualites() {
+            if (loading) return;
+
+            loading = true;
+            $('#loader').show();
+
+            $.ajax({
+                url: '{{ path('load_more_actualites') }}',
+                method: 'GET',
+                data: {page: page},
+                success: function(response) {
+                    if (response.trim() !== '') {
+                        $('#actualites').append(response);
+                        page++;
+                    }
+                },
+                complete: function() {
+                    loading = false;
+                    $('#loader').hide();
+                }
+            });
+        }
+
+        // Détection du scroll pour charger plus d'actualités
+        $(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                loadMoreActualites();
+            }
+        });
+    });
+</script>
+{% endblock %}

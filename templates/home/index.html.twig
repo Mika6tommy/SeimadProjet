@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}SEIMAD SA - Home{% endblock %}
+
+{% block body %}
+{# Intro section #}
+ {% include 'home/partials/_intro_section.html.twig' %}
+
+ {# Services Section #}
+ <main id="main">
+{% include 'home/partials/_services_section.html.twig' %}
+{# Latest Properties Section#}
+ {% include 'home/partials/_latest_properties_section.html.twig' %}
+ </main>
+{% endblock %} 
+ 

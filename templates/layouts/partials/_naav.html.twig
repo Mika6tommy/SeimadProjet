@@ -1,0 +1,57 @@
+:{# Header/Navbar  #}
+
+<nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+  <div class="container"> 
+    <a class="navbar-brand text-brand" href="{{ path('app_home') }}">SEIMAD SA<span class="color-b" style="color : #0565f7;">Madagascar</span></a>
+
+    <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+      <ul class="navbar-nav">
+        <li class="nav-item color-b">
+          <a class="nav-link {% if current_menu is defined and current_menu == 'home'%}active{%endif%}" href="{{ path('app_home') }}">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="{{ path('app_presentation' )}}">Présentationn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if current_menu is defined and current_menu == 'propreties' %}active{%endif%}" href="{{ path('app_property') }}">Nos Projets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#">Actualités</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nos Réalisation</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item " href="#">Antananarivo</a>
+            <a class="dropdown-item " href="#">Mahajanga</a>
+            <a class="dropdown-item " href="#">Toamasina</a>
+            <a class="dropdown-item " href="#">Fianarantsoa</a>
+            <a class="dropdown-item " href="#">Antsiranana</a>
+            <a class="dropdown-item " href="#">Toliara</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{ path('app_contact')}} ">Contact</a>
+        </li>
+      </ul>
+      </div>
+    </div>
+    <a class="btn  btn-outline-primary me-3" type="submit" href="{{ path('app_recherche') }}">
+                
+      <i class="bi bi-search" ></i>
+    </a>
+    
+<div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo01">
+     {% if app.user %}
+            <a class="btn btn-lg btn-danger" type="submit" href="{{ path('app_logout') }}">Déconnecter</a>
+     
+    {% else %}
+            <a class="btn  btn-outline-primary me-3" type="submit" href="{{ path('app_login') }}">Connexion</a>
+            <a class="btn  btn-outline-info me-3" type="submit" href="{{ path('app_register') }}">Inscription</a>
+
+    {% endif %}
+     
+    </div>
+</nav>
+
+{# End Header/Navbar  #}
+

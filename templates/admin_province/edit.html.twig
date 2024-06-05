@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Province</title>
+
+{% block body %}
+    <h1>Edit Province</h1>
+
+    {{ include('admin_province/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_province_index') }}">back to list</a>
+
+    {{ include('admin_province/_delete_form.html.twig') }}
+{% endblock %}

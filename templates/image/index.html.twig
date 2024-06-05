@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Liste des Images{% endblock %}
+
+{% block body %}
+{% include 'image/partials/_intro_single.html.twig' %}
+
+<h1>Liste des Images</h1>
+
+<ul>
+        {% for image in images %}
+            <li>{{ image.name }}</li>
+            <li><img src="{{ path('upload_image', {'id': image.id}) }}" alt="{{ image.name }}"></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

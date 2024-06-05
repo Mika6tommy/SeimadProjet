@@ -1,0 +1,64 @@
+
+{# {% extends 'layouts/base.html.twig' %} #}
+
+{# {% block title %}
+{% block body %} #}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container  m-2">
+        <div class="container">
+    <h1>Inscription</h1>
+
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <form method="post">
+        {{ form_start(registrationForm) }}
+        <div class="mb-3">
+            {{ form_row(registrationForm.name, { 'attr': {'class': 'form-control'}, 'label': 'name' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(registrationForm.prenom, { 'attr': {'class': 'form-control'}, 'label': 'Prénom' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(registrationForm.numero, { 'attr': {'class': 'form-control'}, 'label': 'Numéro' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(registrationForm.email, { 'attr': {'class': 'form-control'}, 'label': 'Email' }) }}
+        </div>
+        <div class="mb-3">
+            {{ form_row(registrationForm.plainPassword, {
+                'label': 'Password',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+        <div class="form-check mb-3">
+            {{ form_row(registrationForm.agreeTerms, {
+                'label_attr': {'class': 'form-check-label'},
+                'attr': {'class': 'form-check-input'}
+            }) }}
+            <label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}">I agree to the terms</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+        {{ form_end(registrationForm) }}
+    </form>
+</div>
+        
+            </tbody>
+        </table>
+        
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{# {% endblock %} #}

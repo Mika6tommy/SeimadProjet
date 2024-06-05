@@ -1,0 +1,74 @@
+{# {% extends 'layouts/base.html.twig' %} #}
+
+{# {% block title %}
+{% block body %} #}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property index</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container  m-2">
+        <h1>Liste des propriétés</h1>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Province</th>
+                    <th>Price</th>
+                    <th>Surface</th>
+                    <th>Rooms</th>
+                    <th>Address</th>
+                    <th>PostalCode</th>
+                    <th>Parking</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for property in properties %}
+                <tr>
+                    <td>{{ property.title }}</td>
+                    <td>{{ property.description }}</td>
+
+                   <td> {% for province in property.Province %}
+    {{ province.lieu }}
+{% endfor %}
+</td>
+                    <td>{{ property.price }}</td>
+                    <td>{{ property.surface }}</td>
+                    <td>{{ property.rooms }}</td>
+                    <td>{{ property.address }}</td>
+                    <td>{{ property.postalCode }}</td>
+                    <td>{{ property.parking }}</td>
+                    
+                    <td><img style="width:50px; height:50px" src="{{ asset('assets/img/' ~ property.Lien)  }}" alt="Image de propriété">
+</img></td>
+                    
+                    
+                    <td>
+                        <a href="{{ path('app_admin_property_show', {'id': property.id}) }}" class="btn btn-info btn-sm">Show</a>
+                        <a href="{{ path('app_admin_property_edit', {'id': property.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="20">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <a href="{{ path('app_admin_property_new') }}" class="btn btn-success">Create new</a>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{# {% endblock %} #}

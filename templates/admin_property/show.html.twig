@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<title>Property</title>
+
+{% block body %}
+    <h1>Property</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Image</th>
+                     <td>
+    <a href="{{ asset('assets/img/' ~ property.Lien) }}" target="_blank">
+        <img style="width:50px; height:50px;" src="{{ asset('assets/img/' ~ property.Lien) }}" alt="Image de propriété">
+    </a>
+</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ property.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ property.description }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ property.price }}</td>
+            </tr>
+            <tr>
+            <th>Provinces</th>
+                          <td> {% for province in property.Province %}
+    {{ province.lieu }}
+{% endfor %}
+</td>
+</tr>
+            <tr>
+                <th>Surface</th>
+                <td>{{ property.surface }}</td>
+            </tr>
+            <tr>
+                <th>Rooms</th>
+                <td>{{ property.rooms }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ property.address }}</td>
+            </tr>
+            <tr>
+                <th>PostalCode</th>
+                <td>{{ property.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>Parking</th>
+                <td>{{ property.parking }}</td>
+            </tr>            
+                <th>CreatedAt</th>
+                <td>{{ property.createdAt ? property.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ property.updatedAt ? property.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_property_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_property_edit', {'id': property.id}) }}">edit</a>
+
+    {{ include('admin_property/_delete_form.html.twig') }}
+{% endblock %}

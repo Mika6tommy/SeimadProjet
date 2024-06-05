@@ -1,0 +1,171 @@
+{# 
+{% for properties in property %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Title</th>
+                            <td>{{ property.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ property.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Properties</th>
+                            <td>{{ property.properties }}</td>
+                        </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td>{{ property.price }}</td>
+                        </tr>
+                        <tr>
+                            <th>Surface</th>
+                            <td>{{ property.surface }}</td>
+                        </tr>
+                        <tr>
+                            <th>Rooms</th>
+                            <td>{{ property.rooms }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Bedrooms</th>
+                            <td>{{ property.bedrooms }}</td>
+                        </tr>
+                        <tr>
+                            <th>Floor</th>
+                            <td>{{ property.floor }}</td>
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <td>{{ property.city }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ property.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>PostalCode</th>
+                            <td>{{ property.postalCode }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Parking</th>
+                            <td>{{ property.parking }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ property.status }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{{ property.type }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th>CreatedAt</th>
+                            <td>{{ property.createdAt ? property.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>UpdatedAt</th>
+                            <td>{{ property.updatedAt ? property.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endfor %} #}
+{# {% extends 'layouts/base.html.twig' %} #}
+
+{# {% block title %}
+{% block body %} #}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property index</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container  m-2">
+        <h1>Liste des propriétés</h1>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Properties</th>
+                    <th>Price</th>
+                    <th>Surface</th>
+                    <th>Rooms</th>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>PostalCode</th>
+                    <th>Parking</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for property in properties %}
+                <tr>
+                    <td>{{ property.id }}</td>
+                    <td>{{ property.title }}</td>
+                    <td>{{ property.description }}</td>
+                    <td>{{ property.properties }}</td>
+                    <td>{{ property.price }}</td>
+                    <td>{{ property.surface }}</td>
+                    <td>{{ property.rooms }}</td>
+                    <td>{{ property.city }}</td>
+                    <td>{{ property.address }}</td>
+                    <td>{{ property.postalCode }}</td>
+                    <td>{{ property.parking }}</td>
+                    <td>{{ property.createdAt ? property.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ property.updatedAt ? property.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_admin_property_show', {'id': property.id}) }}" class="btn btn-info btn-sm">Show</a>
+                        <a href="{{ path('app_admin_property_edit', {'id': property.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="20">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <a href="{{ path('app_admin_property_new') }}" class="btn btn-success">Create new</a>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{# {% endblock %} #}
