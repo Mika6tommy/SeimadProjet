@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html.twig' %}
+
+
+{% block title %}Liste des Provinces{% endblock %}
+
+{% block body %}
+<h1>Liste des Provinces</h1>
+<ul>
+    {% for province in provinces %}
+        <li><a href="{{ path('app_properties_by_province', {id: province.id}) }}">{{ province.lieu }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Propriétés à {{ province.lieu }}{% endblock %}
+
+{% block body %}
+<h1>Propriétés à {{ province.lieu }}</h1>
+<div class="row">
+    {% for property in properties %}
+        <div class="col-md-4 mb-4">
+            <div class="card-box-b card-shadow news-box">
+                <div class="img-box-b" style="height: 250px; overflow: hidden;">
+                    <a href="{{ asset('assets/img/' ~ property.Lien) }}" target="_blank">
+                        <img src="{{ asset('assets/img/' ~ property.Lien) }}" alt="{{ property.title }}" class="img-b img-fluid" style="height: 100%; width: 100%; object-fit: cover;">
+                    </a>
+                </div>
+                <div class="card-overlay">
+                    <div class="card-header-b">
+                        <div class="card-category-b">
+                            <span class="category-b">{{ property.formatedPrice }} MGA</span>
+                        </div>
+                        <div class="card-title-b">
+                            <h2 class="title-2">
+                                <a href="{{ path('app_property_show', {'id': property.id, 'slug': property.slug}) }}">
+                                    {{ property.title }}
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="card-date">
+                            <span class="date-b">{{ property.formatedDate }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-12">
+            <p class="text-center">No properties found</p>
+        </div>
+    {% endfor %}
+</div>
+<a href="{{ path('app_provinces') }}" class="btn btn-secondary">Retour à la liste des provinces</a>
+{% endblock %}
