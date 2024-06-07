@@ -3,35 +3,106 @@
 {% block title %}Liste des Propriétés{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1 class="my-4">Liste des Propriétés</h1>
-    <div id="actualites" class="row">
+<style>
+    .news-feed {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .post {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: white;
+        border-radius: 8px;
+    }
+
+    .post-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-pic {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .post-info h3 {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .post-info span {
+        font-size: 12px;
+        color: #555;
+    }
+
+    .post-content p {
+        margin: 10px 0;
+    max-height: 100px; /* Limite la hauteur de la description */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limite le texte à 3 lignes */
+    -webkit-box-orient: vertical;
+    }
+
+    .post-content img {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+
+    .post-actions {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        border-top: 1px solid #ddd;
+    }
+
+    .post-actions button {
+        background: none;
+        border: none;
+        color: #4267B2;
+        cursor: pointer;
+        font-size: 14px;
+    }
+</style>
+
+<section class="container my-5">
+    <div id="actualites">
+    <div class="card">
         {% for actualite in actualites %}
-            <div class="col-md-11 mb-10">
-            <div class="card-overlay">
-                        <div class="card-header-b">
-                            <div class="card-title-b">
-                                <h2 class="title-2">
-                                    <a href="{{ path('app_actualite_show', {'id': actualite.id, 'slug': actualite.slug}) }}">
-                                        {{ actualite.title }}
-                                    </a>
-                                </h2>
-                            </div>
+            <div class="news-feed">
+                <div class="post">
+                    <div class="post-header">
+                        <img src="{{ asset('assets/img/favicon.png') }}" alt="Profile Picture" class="profile-pic">
+                        <div class="post-info">
+                            <h2 class="title-2">
+                                <a href="{{ path('app_actualite_show', {'id': actualite.id, 'slug': actualite.slug}) }}">
+                                    {{ actualite.title }}
+                                </a>
+                            </h2>
+                            <span>{{ actualite.getFormattedCreatedAt() }}</span>
                         </div>
                     </div>
-                {# <div class="card-box-b card-shadow news-box"> #}
-                    <div class="property-description">
-                        <p class="description color-text-a">
-                            {{ actualite.description|raw }}
-                        </p>
-                    </div>
-                    <div class="img-box-b">
+                    <div class="post-content">
+                        <p>{{ actualite.description|raw }}</p>
                         <a href="{{ asset('assets/img/' ~ actualite.Lien) }}" target="_blank">
                             <img src="{{ asset('assets/img/' ~ actualite.Lien) }}" alt="{{ actualite.title }}" class="img-b img-fluid viewables-image">
                         </a>
                     </div>
-                    
+                    <div class="post-actions">
+                        {# <button class="like-btn">J'aime</button>
+                        <button class="comment-btn">Commenter</button> #}
+                        <button class="share-btn">Partager</button>
+                    </div>
                 </div>
+            </div>
             </div>
         {% else %}
             <div class="col-12">
@@ -46,7 +117,7 @@
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
-</div>
+</section>
 
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -81,7 +152,7 @@
 
         // Détection du scroll pour charger plus d'actualités
         $(window).scroll(function() {
-            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+            if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
                 loadMoreActualites();
             }
         });

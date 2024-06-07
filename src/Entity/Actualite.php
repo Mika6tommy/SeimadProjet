@@ -37,6 +37,9 @@ class Actualite
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?\DateTimeImmutable $createdAt = null;
+
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
@@ -51,6 +54,7 @@ class Actualite
     public function __construct()
     {
         $this->provinces = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -117,6 +121,27 @@ class Actualite
     {
         return $this->updatedAt;
     }
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+    public function getFormattedCreatedAt(): string
+{
+    if (!$this->createdAt) {
+        return '';
+    }
+
+    $formatter = new \IntlDateFormatter(
+        'fr_FR',
+        \IntlDateFormatter::LONG,
+        \IntlDateFormatter::SHORT,
+        'Indian/Antananarivo',
+        \IntlDateFormatter::GREGORIAN
+    );
+
+    return $formatter->format($this->createdAt);
+}
+
     public function getLien(): ?string
     {
         return $this->Lien;

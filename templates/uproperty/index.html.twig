@@ -11,17 +11,17 @@
         <div class="row">
             <div class="col-md-3">
                 <h1>Liste des Provinces</h1>
-                <select id="province-select" class="form-control" onchange="location = this.value;">
+                <select id="province-select" class="form-control">
                     <option value="">Sélectionner une province</option>
                     {% for province in provinces %}
-                        <option value="{{ path('app_properties_by_province', {id: province.id}) }}">{{ province.lieu }}</option>
+                        <option value="{{ province.id }}">{{ province.lieu }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="col-md-9">
                 <div class="title-single-box">
                     <h1 class="my-2">Liste des Propriétés</h1>
-                    <div class="row">
+                    <div id="properties-container" class="row">
                         {% for property in properties %}
                             <div class="col-md-4 mb-4">
                                 <div class="card-box-b card-shadow news-box">
@@ -51,7 +51,7 @@
                             </div>
                         {% else %}
                             <div class="col-12">
-                                <p class="text-center">No records found</p>
+                                <p class="text-center">pas de proprété disponible pour le moment</p>
                             </div>
                         {% endfor %}
                     </div>
@@ -78,4 +78,56 @@
         </div>
     </div>
 </section>
+
+<script>
+document.getElementById('province-select').addEventListener('change', function() {
+    var provinceId = this.value;
+    if (provinceId) {
+        fetch(`/api/properties/by-province/${provinceId}`)
+            .then(response => response.json())
+            .then(data => {
+                var propertiesContainer = document.getElementById('properties-container');
+                propertiesContainer.innerHTML = '';
+                if (data.length > 0) {
+                    data.forEach(property => {
+                        var propertyCard = `
+                            <div class="col-md-4 mb-4">
+                                <div class="card-box-b card-shadow news-box">
+                                    <div class="img-box-b" style="height: 250px; overflow: hidden;">
+                                        <a href="/assets/img/${property.Lien}" target="_blank">
+                                            <img src="/assets/img/${property.Lien}" alt="${property.title}" class="img-b img-fluid" style="height: 100%; width: 100%; object-fit: cover;">
+                                        </a>
+                                    </div>
+                                    <div class="card-overlay">
+                                        <div class="card-header-b">
+                                            <div class="card-category-b">
+                                                <span class="category-b">${property.formatedPrice} MGA</span>
+                                            </div>
+                                            <div class="card-title-b">
+                                                <h2 class="title-2">
+                                                    <a href="/biens/${property.slug}-${property.id}">
+                                                        ${property.title}
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                            <div class="card-date">
+                                                <span class="date-b">${property.formatedDate}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        propertiesContainer.insertAdjacentHTML('beforeend', propertyCard);
+                    });
+                } else {
+                    propertiesContainer.innerHTML = '<div class="col-12"><p class="text-center">pas de proprété disponible pour le moment</p></div>';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        // Optionally, handle the case when no province is selected (e.g., show all properties or show a message)
+    }
+});
+</script>
 {% endblock %}

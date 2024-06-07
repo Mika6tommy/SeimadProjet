@@ -26,7 +26,7 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/properties', name: 'app_property')]
-    public function index(PropertyRepository $propertyRepository, Request $request,ProvinceRepository $provinceRepository): Response
+    public function index(PropertyRepository $propertyRepository, ProvinceRepository $provinceRepository, Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
         $limit = 6;
@@ -37,9 +37,9 @@ class PropertyController extends AbstractController
 
         return $this->render('uproperty/index.html.twig', [
             'properties' => $properties,
-            'provinces' => $provinces,
             'maxPage' => $maxPage,
-            'page' => $page 
+            'page' => $page,
+            'provinces' => $provinces,
         ]);
     }
 
@@ -59,30 +59,29 @@ class PropertyController extends AbstractController
         ]);
     }
 
-    #[Route('/api/property', name:'app_Get', methods:'GET')]
+    #[Route('/api/property', name: 'app_Get', methods: 'GET')]
     public function GetProperty(PropertyRepository $propertyRepository): JsonResponse
     {
         return $this->json($propertyRepository->findAll(), 200, [], ['groups' => 'property:read']);
     }
 
-    #[Route('/provinces', name: 'app_provinces')]
-    public function listProvinces(ProvinceRepository $provinceRepository): Response
-    {
-        $provinces = $provinceRepository->findAll();
-
-        return $this->render('uproperty/provinces.html.twig', [
-            'provinces' => $provinces,
-        ]);
-    }
-
-    #[Route('/properties/province/{id}', name: 'app_properties_by_province')]
-    public function showByProvince(Province $province): Response
+    #[Route('/api/properties/by-province/{id}', name: 'app_properties_by_province', methods: 'GET')]
+    public function getPropertiesByProvince(Province $province): JsonResponse
     {
         $properties = $province->getProperties();
+        $propertiesArray = [];
 
-        return $this->render('uproperty/show_by_province.html.twig', [
-            'properties' => $properties,
-            'province' => $province,
-        ]);
+        foreach ($properties as $property) {
+            $propertiesArray[] = [
+                'id' => $property->getId(),
+                'title' => $property->getTitle(),
+                'slug' => $property->getSlug(),
+                'Lien' => $property->getLien(),
+                'formatedPrice' => $property->getFormatedPrice(),
+                'formatedDate' => $property->getFormatedDate()
+            ];
+        }
+
+        return new JsonResponse($propertiesArray);
     }
 }

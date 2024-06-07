@@ -1,4 +1,5 @@
 <div class="row">
+{% if properties is not empty %}
         {% for property in properties %}
             <div class="col-md-4 mb-4">
                 <div class="card-box-b card-shadow news-box">
@@ -26,9 +27,10 @@
                     </div>
                 </div>
             </div>
-        {% else %}
+            {% else %}
             <div class="col-12">
                 <p class="text-center">No records found</p>
             </div>
         {% endfor %}
+        {% endif %}
     </div>

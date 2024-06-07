@@ -3,8 +3,16 @@
 
 {% block title %}SEIMAD SA - Recherche{% endblock %}
 
+
+
 {% block body%}
+    </form>
 {% include('recherche/partials/_intro_single.html.twig')%}
 {% include('recherche/partials/_main.html.twig')%}
+
+    <div id="search-results">
+        {% include 'recherche/_results.html.twig' with {'properties': properties} %}
+    </div>
+
 
 {% endblock %}
