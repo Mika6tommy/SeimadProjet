@@ -30,7 +30,7 @@ class PropertyImageCrudController extends AbstractCrudController
     {
         return [
             ImageField::new('imageName')
-                ->setBasePath('/images/properties')
+                ->setBasePath('/assets/img')
                 ->onlyOnIndex(),
             TextField::new('imageName')
                 ->setFormType(VichFileType::class)

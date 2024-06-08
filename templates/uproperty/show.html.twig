@@ -1,154 +1,157 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %}{{ property.title }}{% endblock %}
+{% block title %}
+	{{ property.title }}
+{% endblock %}
 
 {% block body %}
-<section class="property-single nav-arrow-b">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div id="property-single-carousel" class="swiper">
-          <div class="swiper-wrapper">
-            <div class="carousel-item-b swiper-slide">
-              <img src="{{ asset('assets/img/' ~ property.Lien) }}" class="viewable-image" alt="Image">
-               <div class="col-auto d-flex">
-              <a class="btn btn-primary ml-auto" href="{{path('app_manifesat_interet')}}">Manifestation d'intérêt</a>
-              </div> 
-            </div>
-          </div>
-        </div>
-        <div class="property-single-carousel-pagination carousel-pagination"></div>
-      </div>
-    </div>
+	<section class="property-single nav-arrow-b">
+		<div class="row">
+			<div class="col-sm-12">
+				<img src="{{ asset('assets/img/' ~ property.Lien) }}" class="viewable-image" alt="Image">
+				<div class="row justify-content-between">
+					<div class="col-md-5 col-lg-4">
+						<div class="property-price d-flex justify-content-center foo">
+							<div class="card-header-c d-flex">
+								<div class="card-box-ico">
+									<span class="bi bi-cash"></span>
+								</div>
+								<div class="card-title-c align-self-center">
+									<h5 class="title-c">{{ property.price }}
+										MGA</h5>
+								</div>
+							</div>
+						</div>
+						<div class="property-summary">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="title-box-d section-t4">
+										<h3 class="title-d">Sommaire</h3>
+									</div>
+								</div>
+							</div>
+							<div class="summary-list">
+								<ul class="list">
+									<li class="d-flex justify-content-between">
+										<strong>Location:</strong>
+										<span>
+											{% for province in property.provinces %}
+												{{ province.lieu }}
+											{% endfor %}
+										</span>
+									</li>
+									<li class="d-flex justify-content-between">
+										<strong>Surface :</strong>
+										<span>{{ property.surface }}
+											m<sup>2</sup>
+										</span>
+									</li>
+									<li class="d-flex justify-content-between">
+										<strong>Chambre :</strong>
+										<span>{{ property.rooms }}</span>
+									</li>
+									<li class="d-flex justify-content-between">
+										<strong>Garage:</strong>
+										<span>{{ property.parking }}</span>
+									</li>
+									<li class="d-flex justify-content-between">
+										<strong>Pour faire des commandes :</strong>
+										<span>
+											<div class="col-auto d-flex">
+												<a class="btn btn-primary ml-auto" href="{{ path('app_manifesat_interet') }}">Manifestation d'intérêt</a>
+											</div>
+										</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-7 col-lg-7 section-md-t3">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="title-box-d">
+									<h3 class="title-d">Description</h3>
+								</div>
+							</div>
+						</div>
+						<div class="property-description">
+							<p class="description color-text-a">
+								{{ property.description|raw }}
+							</p>
+						</div>
 
+						{# <div class="amenities-list color-text-a">
+												                        <div class="container">
+												                            <div class="row justify-content-center">
+												                                <div class="col-lg-8">
+												                                    <div id="property-single-carousel" class="swiper-container">
+												                                        <div class="swiper-wrapper">
+												                                            {% for propertyImage in property.galarie %}
+												                                                <div class="swiper-slide">
+												                                                    <img src="{{ asset('assets/img/' ~ propertyImage.imageName) }}" class="viewable-image" alt="Image de la propriété">
+												                                                </div>
+												                                            {% endfor %}
+												                                        </div>
+												                                        <!-- Add Pagination -->
+												                                        <div class="swiper-pagination"></div>
+												                                        <!-- Add Navigation -->
+												                                        <div class="swiper-button-next"></div>
+												                                        <div class="swiper-button-prev"></div>
+												                                    </div>
+												                                </div>
+												                            </div>
+												                        </div>
+												                    </div> #}
+						
+					</div>
+					<div class="row section-t3">
+						<div>
+							<div class="title-box-d">
+								<h3 class="title-d">Galerie</h3>
+							</div>
+						</div>
+<div class="intro intro-carousel swiper position-relative">
+							<div class="swiper-wrapper">
+								{% for propertyImage in property.galarie %}
+									<div class="swiper-slide carousel-item-a intro-item bg-image viewable-image">
+										<div class="overlay overlay-a"></div>
+										<div class="intro-content display-table">
+											<div class="table-cell">
+												<div class="container">
+													<div class="row">
+														<div class="col-lg-8">
+															<div class="intro-body">
+																<img src="{{ asset('assets/img/' ~ propertyImage.imageName) }}" class=" viewable-image" alt="Image de la propriété">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								{%   endfor  %}
+							</div>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+					{{ form_start(form) }}
+
+<div class="col-sm-12 section-t8">
+    <legend>Les renseignements vous concernant</legend>
     <div class="row">
-      <div class="col-sm-12">
-
-        <div class="row justify-content-between">
-          <div class="col-md-5 col-lg-4">
-            <div class="property-price d-flex justify-content-center foo">
-              <div class="card-header-c d-flex">
-                <div class="card-box-ico">
-                  <span class="bi bi-cash"></span>
-                </div>
-                <div class="card-title-c align-self-center">
-                  <h5 class="title-c">{{ property.price }} MGA</h5>
-                </div>
-              </div>
+        <div class="col-md-6 mb-3">
+            <!-- Ajoutez les autres champs de votre formulaire ici en utilisant les noms de champs corrects -->
+            <div class="form-group">
+                {{ form(form) }}
             </div>
-            <div class="property-summary">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="title-box-d section-t4">
-                    <h3 class="title-d">Quick Summary</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="summary-list">
-                <ul class="list">
-                  <li class="d-flex justify-content-between">
-                    <strong>Property ID:</strong>
-                    {# <span>{{ property.provinces }}</span> #}
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Location:</strong>
-                    <span>{% for province in property.provinces %}{{ province.lieu }}{% endfor %}</span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Property Type:</strong>
-                    <span>type</span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Status:</strong>
-                    <span>stat</span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Area:</strong>
-                    <span>{{ property.surface }} m<sup>2</sup></span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Beds:</strong>
-                    <span>{{ property.rooms }}</span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Baths:</strong>
-                    <span></span>
-                  </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Garage:</strong>
-                    <span>{{ property.parking }}</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-7 col-lg-7 section-md-t3">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="title-box-d">
-                  <h3 class="title-d">Property Description</h3>
-                </div>
-              </div>
-            </div>
-            <div class="property-description">
-              <p class="description color-text-a">
-                {{ property.description|raw }}
-              </p>
-            </div>
-            <div class="row section-t3">
-              <div class="col-sm-12">
-                <div class="title-box-d">
-                  <h3 class="title-d">Amenities</h3>
-                </div>
-              </div>
-            </div>
-            <div class="amenities-list color-text-a">
-              <ul class="list-a no-margin">
-                <li>Placeholder for Amenities</li>
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>
-      </div>
-      <div class="col-md-12">
-        <div class="row section-t3">
-          <div class="col-sm-12">
-            <div class="title-box-d">
-              <h3 class="title-d">Contact Agent</h3>
-            </div>
-          </div>
-        </div>
-
-          <div class="col-md-12 col-lg-4">
-            <div class="property-contact">
-              <form class="form-a">
-                <div class="row">
-                  <div class="col-md-12 mb-1">
-                    <div class="form-group">
-                      <input type="text" class="form-control form-control-lg form-control-a" id="inputName" placeholder="Name *" required>
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-1">
-                    <div class="form-group">
-                      <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1" placeholder="Email *" required>
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-1">
-                    <div class="form-group">
-                      <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-12 mt-3">
-                    <button type="submit" class="btn btn-a">Send Message</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-</section>
-{% endblock %}
+</div>
+
+{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endblock %}
+

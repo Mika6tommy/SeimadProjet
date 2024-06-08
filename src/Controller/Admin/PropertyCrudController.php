@@ -62,7 +62,7 @@ class PropertyCrudController extends AbstractCrudController
                 ->setFormTypeOptions([
                     'by_reference' => false,
                 ]),
-        
+
             IntegerField::new('Parking'),
             TextField::new('LienImage')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('Lien')
