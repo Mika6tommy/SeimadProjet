@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Property;
+use App\Form\PropertyImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -10,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -52,7 +55,14 @@ class PropertyCrudController extends AbstractCrudController
             IntegerField::new('Price'),
             IntegerField::new('Surface'),
             TextField::new('Address'),
-            // IntegerField::new('PostalCode'),
+            CollectionField::new('galarie')
+                ->setEntryType(PropertyImageType::class)
+                ->allowAdd(true)
+                ->allowDelete(true)
+                ->setFormTypeOptions([
+                    'by_reference' => false,
+                ]),
+        
             IntegerField::new('Parking'),
             TextField::new('LienImage')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('Lien')

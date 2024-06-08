@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\PropertyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +18,15 @@ class RechercheController extends AbstractController
         $properties = $propertyRepository->findBySearch($search);
 
         if ($request->isXmlHttpRequest()) {
-            return $this->render('recherche/index.html.twig', [
-                'properties' => $properties,
-            ]);
+            $results = [];
+            foreach ($properties as $property) {
+                $results[] = [
+                    'title' => $property->getTitle(),
+                    'id' => $property->getId(),
+                    // Ajoutez d'autres champs si nécessaire
+                ];
+            }
+            return new JsonResponse($results);
         }
 
         return $this->render('recherche/index.html.twig', [
@@ -28,4 +35,5 @@ class RechercheController extends AbstractController
         ]);
     }
 }
+
 

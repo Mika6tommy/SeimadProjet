@@ -50,7 +50,7 @@ class PropertyRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('p.title = false');
     }
-
+    
 
 
 
@@ -83,13 +83,12 @@ class PropertyRepository extends ServiceEntityRepository
    /**
         * @return Property[] Returns an array of Property objects
         */
-    public function findBySearch(string $text): array
-       {
-           return $this->createQueryBuilder('q')
-               ->andWhere('q.title LIKE :val')
-               ->setParameter('val', "%$text%")
-               ->getQuery()
-               ->getResult()
-           ;
-       }
+        public function findBySearch(string $search)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.title LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+    }
     }

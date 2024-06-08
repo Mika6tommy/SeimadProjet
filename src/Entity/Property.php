@@ -76,19 +76,26 @@ class Property
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?\DateTimeImmutable $createdAt = null;
+
     #[ORM\Column(length: 255)]
     private ?string $Lien = null;
 
     #[Vich\UploadableField(mapping:'products', fileNameProperty:'Lien' )]
     private ?File $LienImage = null;
 
+    #[ORM\OneToMany(targetEntity: PropertyImage::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
+    private Collection $galarie;
 
     #[ORM\ManyToMany(targetEntity: Province::class, inversedBy: 'properties')]
     private Collection $provinces;
 
     public function __construct()
     {
+        $this->galarie = new ArrayCOllection();
         $this->provinces = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -221,6 +228,26 @@ class Property
     {
         return $this->updatedAt;
     }
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+    public function getFormattedCreatedAt(): string
+{
+    if (!$this->createdAt) {
+        return '';
+    }
+
+    $formatter = new \IntlDateFormatter(
+        'fr_FR',
+        \IntlDateFormatter::LONG,
+        \IntlDateFormatter::SHORT,
+        'Indian/Antananarivo',
+        \IntlDateFormatter::GREGORIAN
+    );
+
+    return $formatter->format($this->createdAt);
+}
 
     public function getLien(): ?string
     {
@@ -268,4 +295,30 @@ public function removeProvince(Province $province): self
 
     return $this;
 }
+public function getGalarie(): Collection
+    {
+        return $this->galarie;
+    }
+
+    public function addGalarie(PropertyImage $propertyImage): self
+    {
+        if (!$this->galarie->contains($propertyImage)) {
+            $this->galarie[] = $propertyImage;
+            $propertyImage->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGalarie(PropertyImage $propertyImage): self
+    {
+        if ($this->galarie->removeElement($propertyImage)) {
+            // set the owning side to null (unless already changed)
+            if ($propertyImage->getProperty() === $this) {
+                $propertyImage->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
 }
