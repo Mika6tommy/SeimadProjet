@@ -1,0 +1,80 @@
+# config/packages/easy_admin.yaml
+easy_admin:
+    site_name: 'Gestion des Biens Immobiliers'
+    translation_domain: 'messages'
+
+    entities:
+        Property:
+            class: App\Entity\Property
+            label: 'Propriétés'
+            list:
+                title: 'Liste des propriétés'
+                fields:
+                    - { property: 'id', label: 'ID' }
+                    - { property: 'title', label: 'Titre' }
+                    - { property: 'description', label: 'Description', type: 'text', max_length: 50 }
+                    - { property: 'price', label: 'Prix' }
+                    - { property: 'surface', label: 'Superficie' }
+                    - { property: 'rooms', label: 'Pièces' }
+                    - { property: 'address', label: 'Adresse' }
+                    - { property: 'postalCode', label: 'Code Postal' }
+                    - { property: 'parking', label: 'Parking' }
+                    - { property: 'createdAt', label: 'Créé le', type: 'datetime' }
+                    - { property: 'updatedAt', label: 'Mis à jour le', type: 'datetime' }
+            form:
+                title: 'Éditer la propriété'
+                fields:
+                    - { property: 'title', label: 'Titre' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'price', label: 'Prix' }
+                    - { property: 'surface', label: 'Superficie' }
+                    - { property: 'rooms', label: 'Pièces' }
+                    - { property: 'address', label: 'Adresse' }
+                    - { property: 'postalCode', label: 'Code Postal' }
+                    - { property: 'parking', label: 'Parking' }
+                    - { property: 'Lien', label: 'Lien des images'}
+                    - { property: 'LienImage', label: 'Télécharger une image', type: 'vich_image' }
+                    - { property: 'provinces', label: 'Provinces' }
+            show:
+                title: 'Détails de la propriété'
+                fields:
+                    - { property: 'id', label: 'ID' }
+                    - { property: 'title', label: 'Titre' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'price', label: 'Prix' }
+                    - { property: 'surface', label: 'Superficie' }
+                    - { property: 'rooms', label: 'Pièces' }
+                    - { property: 'address', label: 'Adresse' }
+                    - { property: 'postalCode', label: 'Code Postal' }
+                    - { property: 'parking', label: 'Parking' }
+                    - { property: 'Lien', label: "Lien de l'image" }
+                    - { property: 'createdAt', label: 'Créé le', type: 'datetime' }
+                    - { property: 'updatedAt', label: 'Mis à jour le', type: 'datetime' }
+            new:
+                title: 'Créer une nouvelle propriété'
+                fields:
+                    - { property: 'title', label: 'Titre' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'price', label: 'Prix' }
+                    - { property: 'surface', label: 'Superficie' }
+                    - { property: 'rooms', label: 'Pièces' }
+                    - { property: 'address', label: 'Adresse' }
+                    - { property: 'postalCode', label: 'Code Postal' }
+                    - { property: 'parking', label: 'Parking' }
+                    - { property: 'Lien', label: "Lien de l'image" }
+                    - { property: 'LienImage', label: 'Télécharger une image', type: 'vich_image' }
+                    - { property: 'provinces', label: 'Provinces' }
+            edit:
+                title: 'Modifier la propriété'
+                fields:
+                    - { property: 'title', label: 'Titre' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'price', label: 'Prix' }
+                    - { property: 'surface', label: 'Superficie' }
+                    - { property: 'rooms', label: 'Pièces' }
+                    - { property: 'address', label: 'Adresse' }
+                    - { property: 'postalCode', label: 'Code Postal' }
+                    - { property: 'parking', label: 'Parking' }
+                    - { property: 'Lien', label: "Lien de l'image" }
+                    - { property: 'LienImage', label: 'Télécharger une image', type: 'vich_image' }
+                    - { property: 'provinces', label: 'Provinces' }

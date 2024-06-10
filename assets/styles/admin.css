@@ -1,0 +1,37 @@
+:root {
+    /* background du body principal - toutes pages */
+    --body-bg: #ffffff;
+
+    /* taille de la sidebar par défaut (230px par défaut) */
+    --sidebar-max-width: 250px;
+
+    /* couleur du background de la sidebar */
+    --sidebar-bg: #283a5a;
+
+    /* border de la sidebar */
+    --sidebar-border-color: #9b0c04;
+
+    /* couleur du titre principal si pas de logo image */
+    --sidebar-logo-color: #fff;
+
+    /* couleur des submenus */
+    --sidebar-menu-submenu-color: #fff;
+
+    /* couleur de la police des cruds */
+    --sidebar-menu-color: #95969e;
+
+    /* couleur des sections */
+    --sidebar-menu-header-color: #00e1ff;
+
+    /* couleur des icons font-awesome */
+    --sidebar-menu-icon-color: #849bff;
+
+    /* couleur du background des boutons actifs = lien sélectionné */
+    --sidebar-menu-active-item-bg: #ffffff;
+
+    /* couleur police des boutons actifs */
+    --sidebar-menu-active-item-color: #283a5a;
+
+    /*  */
+    --sidebar-menu-badge-active-color: #000;
+}

@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\PropertyImageRepository;
+use App\Repository\ActualiteImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
 #[Vich\Uploadable]
-#[ORM\Entity(repositoryClass: PropertyImageRepository::class)]
-class PropertyImage
+#[ORM\Entity(repositoryClass: ActualiteImageRepository::class)]
+class ActualiteImage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,9 +22,9 @@ class PropertyImage
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
-    #[ORM\ManyToOne(targetEntity: Property::class, inversedBy: 'galerie')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Property $property = null;
+    #[ORM\ManyToOne(targetEntity: Actualite::class, inversedBy: 'galerie')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Actualite $actualite = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -42,7 +42,6 @@ class PropertyImage
     public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
-
         return $this;
     }
 
@@ -60,17 +59,17 @@ class PropertyImage
         }
     }
 
-    public function getProperty(): ?Property
+    public function getActualite(): ?Actualite
     {
-        return $this->property;
+        return $this->actualite;
     }
 
-    public function setProperty(?Property $property): self
+    public function setActualite(?Actualite $actualite): self
     {
-        $this->property = $property;
-
+        $this->actualite = $actualite;
         return $this;
     }
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;

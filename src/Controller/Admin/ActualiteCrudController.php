@@ -3,12 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Actualite;
+use App\Form\ActualiteImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -35,7 +37,13 @@ class ActualiteCrudController extends AbstractCrudController
             ->hideOnForm(),
             TextField::new('title'),
             TextEditorField::new('description'),
-            // TextField::new('lieu'),
+            CollectionField::new('galerie')
+                ->setEntryType(ActualiteImageType::class)
+                ->allowAdd(true)
+                ->allowDelete(true)
+                ->setFormTypeOptions([
+                    'by_reference' => false,
+                ]),
             AssociationField::new('provinces')
                 ->setLabel('Lieux')
                 // ->hideOnIndex(false)

@@ -11,11 +11,10 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
-
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 #[ORM\Entity(repositoryClass: ActualiteRepository::class)]
 #[Vich\Uploadable]
-class Actualite
+class Actualite extends ServiceEntityRepository
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,18 +42,22 @@ class Actualite
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[Vich\UploadableField(mapping:'products', fileNameProperty:'Lien' )]
+    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'Lien')]
     private ?File $LienImage = null;
 
-    public function getSlug():string
-    {
-        return (new Slugify())->slugify($this->title);
-    }
+    #[ORM\OneToMany(targetEntity: ActualiteImage::class, mappedBy: 'actualite', cascade: ['persist', 'remove'])]
+    private Collection $galerie;
 
     public function __construct()
     {
+        $this->galerie = new ArrayCollection();
         $this->provinces = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+    }
+   
+    public function getSlug(): string
+    {
+        return (new Slugify())->slugify($this->title);
     }
 
     public function getId(): ?int
@@ -67,10 +70,9 @@ class Actualite
         return $this->description;
     }
 
-    public function setDescription(?string $description): static
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -79,10 +81,9 @@ class Actualite
         return $this->lieu;
     }
 
-    public function setLieu(?string $lieu): static
+    public function setLieu(?string $lieu): self
     {
         $this->lieu = $lieu;
-
         return $this;
     }
 
@@ -112,45 +113,42 @@ class Actualite
 
         return $this;
     }
-
-    public function updateTimeStamp(): void
-    {
-        $this->updatedAt = new \DateTimeImmutable();
-    }
-    public function getUpdateAt(): ?\DateTimeImmutable
+    
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
+
     public function getFormattedCreatedAt(): string
-{
-    if (!$this->createdAt) {
-        return '';
+    {
+        if (!$this->createdAt) {
+            return '';
+        }
+
+        $formatter = new \IntlDateFormatter(
+            'fr_FR',
+            \IntlDateFormatter::LONG,
+            \IntlDateFormatter::SHORT,
+            'Indian/Antananarivo',
+            \IntlDateFormatter::GREGORIAN
+        );
+
+        return $formatter->format($this->createdAt);
     }
-
-    $formatter = new \IntlDateFormatter(
-        'fr_FR',
-        \IntlDateFormatter::LONG,
-        \IntlDateFormatter::SHORT,
-        'Indian/Antananarivo',
-        \IntlDateFormatter::GREGORIAN
-    );
-
-    return $formatter->format($this->createdAt);
-}
 
     public function getLien(): ?string
     {
         return $this->Lien;
     }
 
-    public function setLien(?string $Lien): static
+    public function setLien(?string $Lien): self
     {
         $this->Lien = $Lien;
-
         return $this;
     }
 
@@ -162,19 +160,48 @@ class Actualite
     public function setLienImage(?File $LienImage): void
     {
         $this->LienImage = $LienImage;
-        if(null !== $LienImage){
+        if (null !== $LienImage) {
+            $this->updatedAt = new \DateTimeImmutable();
         }
-        $this->updatedAt = new \DateTimeImmutable();
     }
-   
+
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ActualiteImage>
+     */
+    public function getGalerie(): Collection
+    {
+        return $this->galerie;
+    }
+
+    public function addGalerie(ActualiteImage $actualiteImage): self
+    {
+        if (!$this->galerie->contains($actualiteImage)) {
+            $this->galerie[] = $actualiteImage;
+            $actualiteImage->setActualite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGalerie(ActualiteImage $actualiteImage): self
+    {
+        if ($this->galerie->removeElement($actualiteImage)) {
+            // set the owning side to null (unless already changed)
+            if ($actualiteImage->getActualite() === $this) {
+                $actualiteImage->setActualite(null);
+            }
+        }
 
         return $this;
     }

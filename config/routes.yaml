@@ -15,7 +15,7 @@ app_admin_property:
     type: attribute
 dashboard:
     path: /admin
-    controller: App\Controller\Admin\DashboardController::index
+    controller: App\Controller\Admin\DashboardController::dashboard
 load_more_actualites:
     path: /load-more-actualites
     controller: App\Controller\ActualiteController::loadMoreActualites

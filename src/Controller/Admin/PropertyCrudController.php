@@ -28,7 +28,7 @@ class PropertyCrudController extends AbstractCrudController
         return $crud
         ->setEntityLabelInPlural('Propriété')
         ->setEntityLabelInSingular('Propriété')
-        ->setPageTitle('index', 'admnistrateur des propriétés')
+        ->setPageTitle('index', 'Admnistrateur des propriétés')
         ->setPaginatorPageSize(12);
     }
     

@@ -52,26 +52,25 @@ class Province
         return $this->relation;
     }
 
-    public function addRelation(Actualite $relation): static
+    public function addRelation(Actualite $actualite): self
     {
-        if (!$this->relation->contains($relation)) {
-            $this->relation->add($relation);
+        if (!$this->relation->contains($actualite)) {
+            $this->relation[] = $actualite;
         }
 
         return $this;
     }
 
-    public function removeRelation(Actualite $relation): static
+    public function removeRelation(Actualite $actualite): self
     {
-        $this->relation->removeElement($relation);
+        $this->relation->removeElement($actualite);
 
         return $this;
     }
-
-
     public function __construct()
     {
         $this->properties = new ArrayCollection();
+        $this->relation = new ArrayCollection();
     }
 
     // Getter et Setter pour 'properties'

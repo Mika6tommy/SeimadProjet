@@ -91,4 +91,13 @@ class PropertyRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function countByDate()
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('SUBSTRING(p.createdAt, 1, 10) as date', 'COUNT(p.id) as count')
+            ->groupBy('date')
+            ->orderBy('date', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
     }

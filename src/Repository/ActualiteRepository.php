@@ -45,4 +45,13 @@ class ActualiteRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function countByDate()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select('SUBSTRING(a.createdAt, 1, 10) as date', 'COUNT(a.id) as count')
+            ->groupBy('date')
+            ->orderBy('date', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

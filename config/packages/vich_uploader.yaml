@@ -8,12 +8,3 @@ vich_uploader:
            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
            delete_on_update: false
            delete_on_remove: false
-       property_images: 
-            uri_prefix: 'product_Lien'
-            upload_destination: '%kernel.project_dir%/public/assets/img'
-            namer:
-                service: Vich\UploaderBundle\Naming\SmartUniqueNamer
-            directory_namer:
-                service: Vich\UploaderBundle\Naming\PropertyDirectoryNamer
-                options:
-                    property: 'property.id'
