@@ -166,7 +166,7 @@ class ManifestationInteretType extends AbstractType
                 'label' => "J'accepte que mes données soient traitées par SEIMad, dans le cadre de ma demande et de la relation commerciale qui pourrait en découler",
     'required' => true, // Vous pouvez définir cette option sur true ou false en fonction de vos besoins
     'attr' => [
-        'class' => 'custom-control-input', // Vous pouvez ajouter des classes CSS personnalisées si nécessaire
+        // 'class' => 'custom-control-input', // Vous pouvez ajouter des classes CSS personnalisées si nécessaire
     ],
 ])
             

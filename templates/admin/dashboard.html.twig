@@ -8,30 +8,27 @@
             display: flex;
             justify-content: right;
             align-items: right;
-            flex-direction: column;
-            height: 20vh; /* Ajustez la hauteur comme vous le souhaitez */
+            height: 10vh; /* Ajustez la hauteur comme vous le souhaitez */
         }
 
         canvas {
             width: 30vw; /* Ajustez la largeur comme vous le souhaitez */
-            height: 20vh; /* Ajustez la hauteur comme vous le souhaitez */
+            height: 10vh; /* Ajustez la hauteur comme vous le souhaitez */
             margin-bottom: 10px;
         }
-
         h1 {
             text-align: center;
         }
     </style>
-
-    <h1>Tableau de Bord</h1>
+<section>
+<h1>Tableau de Bord</h1>
     <div class="chart-container">
         <canvas id="actualiteChart"></canvas>
         <canvas id="propertyChart"></canvas>
     </div>
-
+</section>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const actualiteData = {{ data|json_encode|raw }};
@@ -72,6 +69,8 @@
             });
 
             const propertyCtx = document.getElementById('propertyChart').getContext('2d');
+            
+console.log(propertyLabels)
             new Chart(propertyCtx, {
                 type: 'pie',
                 data: {
